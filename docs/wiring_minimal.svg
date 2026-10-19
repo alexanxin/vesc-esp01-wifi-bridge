@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" width="760" height="410" font-family="Helvetica, Arial, sans-serif">
+  <title>Minimal VESC UART to ESP-01 wiring (no regulator, capacitor or resistors)</title>
+  <rect width="760" height="410" fill="#ffffff"/>
+  <text x="380" y="32" font-size="16" text-anchor="middle" fill="#222">Minimal wiring: four wires, no extra parts (tested, less safe)</text>
+
+  <!-- VESC -->
+  <rect x="20" y="60" width="160" height="240" rx="8" fill="#f1efe8" stroke="#5f5e5a"/>
+  <text x="100" y="82" font-size="14" text-anchor="middle" fill="#222">VESC COMM</text>
+  <text x="166" y="104" font-size="13" text-anchor="end" fill="#222">3.3V</text>
+  <text x="166" y="174" font-size="13" text-anchor="end" fill="#222">GND</text>
+  <text x="166" y="224" font-size="13" text-anchor="end" fill="#222">TX</text>
+  <text x="166" y="264" font-size="13" text-anchor="end" fill="#222">RX</text>
+
+  <!-- ESP-01 -->
+  <rect x="520" y="60" width="220" height="270" rx="8" fill="#eeedfe" stroke="#534ab7"/>
+  <text x="630" y="82" font-size="14" text-anchor="middle" fill="#26215c">ESP-01</text>
+  <text x="534" y="104" font-size="13" fill="#26215c">VCC</text>
+  <text x="534" y="134" font-size="13" fill="#26215c">CH_PD (EN)</text>
+  <text x="534" y="174" font-size="13" fill="#26215c">GND</text>
+  <text x="534" y="224" font-size="13" fill="#26215c">RX</text>
+  <text x="534" y="264" font-size="13" fill="#26215c">TX</text>
+  <text x="534" y="304" font-size="13" fill="#26215c">GPIO0: free</text>
+  <text x="534" y="320" font-size="11" fill="#534ab7">(to GND only while flashing)</text>
+
+  <!-- 3.3V to VCC and CH_PD -->
+  <line x1="180" y1="100" x2="520" y2="100" stroke="#ef9f27" stroke-width="2.5"/>
+  <polyline points="480,100 480,130 520,130" fill="none" stroke="#ef9f27" stroke-width="2.5"/>
+  <!-- GND -->
+  <line x1="180" y1="170" x2="520" y2="170" stroke="#444441" stroke-width="2.5"/>
+  <!-- data, crossed -->
+  <line x1="180" y1="220" x2="520" y2="220" stroke="#378add" stroke-width="2.5"/>
+  <line x1="180" y1="260" x2="520" y2="260" stroke="#1d9e75" stroke-width="2.5"/>
+
+  <text x="380" y="355" font-size="13" text-anchor="middle" fill="#222">Data lines cross: VESC TX to ESP-01 RX, VESC RX to ESP-01 TX.</text>
+  <text x="380" y="378" font-size="13" text-anchor="middle" fill="#a32d2d">The ESP-01 loads the VESC's own 3.3 V rail (peaks ~250-300 mA).</text>
+  <text x="380" y="398" font-size="13" text-anchor="middle" fill="#a32d2d">Worked on an FSESC 6.6; may not on other ESCs. Swapped TX/RX is unprotected.</text>
+</svg>

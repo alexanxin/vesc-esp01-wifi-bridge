@@ -34,7 +34,7 @@ Including a programmer, the whole setup is still only about €4–6.
 
 The bridge works without the capacitor and the resistors; it was first tested on the bike with plain wires. They're cheap insurance: the resistors make a swapped TX/RX harmless, and the capacitor smooths the supply when the WiFi transmits.
 
-## Wiring
+## Wiring (recommended)
 
 ![Wiring diagram](docs/wiring.svg)
 
@@ -48,6 +48,24 @@ The bridge works without the capacitor and the resistors; it was first tested on
 - **Power the ESP-01 from 5 V through the regulator, not from the VESC's 3.3 V pin.** The ESP-01 draws peaks of about 250–300 mA when transmitting. The VESC's 3.3 V rail also feeds its own processor and your throttle, and a dip there can cause throttle jitter or an ESC reset.
 - **CH_PD (EN) must be at 3.3 V,** or the ESP-01 stays switched off. The ESP-01S has a pull-up on the board, but the original ESP-01 often doesn't.
 - **On VESC 6-style COMM ports** (such as the FSESC 6.6: 5V, 3.3V, GND, ADC1, RX, TX, ADC2, ADC3), an ADC throttle can stay on the same port. Check your own ESC's pinout, since connectors differ between models.
+
+### Minimal wiring: four wires, no extra parts (tested, less safe)
+
+![Minimal wiring diagram](docs/wiring_minimal.svg)
+
+| VESC COMM port | ESP-01 |
+|---|---|
+| 3.3V | **VCC** and **CH_PD** |
+| GND | GND |
+| TX | **RX** |
+| RX | **TX** |
+
+This works: it ran on a Flipsky FSESC 6.6 on the bike with a solid connection. It's the cheapest possible setup, just the ESP-01 and four wires. The risks:
+
+- **The ESP-01 loads the VESC's 3.3 V rail.** Its WiFi peaks of about 250–300 mA come from the same regulator that powers the VESC's processor and your throttle. On the FSESC 6.6 that was fine; on an ESC with a weaker 3.3 V regulator it could cause throttle jitter or an ESC reset while riding. If you see either, switch to the recommended wiring above.
+- **No protection on the data lines.** If TX and RX are wired straight instead of crossed, two outputs drive each other with nothing to limit the current.
+
+A good middle ground is to keep the four wires but add the 220 µF capacitor at the ESP-01's VCC and GND pins, and set `WIFI_TX_DBM` to 10 (the default), which lowers the current peaks.
 
 ### Finding the ESP-01 pins
 
