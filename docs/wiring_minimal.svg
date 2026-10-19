@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" width="760" height="410" font-family="Helvetica, Arial, sans-serif">
   <title>Minimal VESC UART to ESP-01 wiring (no regulator, capacitor or resistors)</title>
   <rect width="760" height="410" fill="#ffffff"/>
-  <text x="380" y="32" font-size="16" text-anchor="middle" fill="#222">Minimal wiring: four wires, no extra parts (tested, less safe)</text>
+  <text x="380" y="32" font-size="16" text-anchor="middle" fill="#222">The cheap and dirty way: four wires, no extra parts (tested)</text>
 
   <!-- VESC -->
   <rect x="20" y="60" width="160" height="240" rx="8" fill="#f1efe8" stroke="#5f5e5a"/>
