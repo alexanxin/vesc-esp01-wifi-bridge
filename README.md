@@ -133,7 +133,10 @@ All settings are build flags in `platformio.ini`:
 
 ## Related
 
-- [Vesc_WIFI](https://github.com/NetworkDir/Vesc_WIFI): the same idea for the ESP32.
+- [VescBLEBridge](https://github.com/A-Emile/VescBLEBridge): a Bluetooth (BLE) bridge on a ~€3 ESP32-C3 or ESP32-C6 board, working with the official VESC Tool app. Its board has USB for flashing (no separate programmer) and runs from 5 V, and your phone stays on its normal network. Turn on its passkey option, since security is off by default.
+- [Vesc_WIFI](https://github.com/NetworkDir/Vesc_WIFI): the same WiFi idea for the ESP32.
+
+Which to choose: this ESP-01 bridge is the cheapest if you already have an ESP-01 and a programmer, or want a laptop to connect over WiFi too. VescBLEBridge is simpler for most people starting from scratch.
 
 ## Licence
 
