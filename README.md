@@ -34,7 +34,11 @@ Including a programmer, the whole setup is still only about €4–6.
 
 The bridge works without the capacitor and the resistors; it was first tested on the bike with plain wires. They're cheap insurance: the resistors make a swapped TX/RX harmless, and the capacitor smooths the supply when the WiFi transmits.
 
-## Wiring: the proper way
+## Wiring
+
+Two options: the proper way, and the cheap and dirty way. Both are tested.
+
+### The proper way
 
 ![Wiring diagram](docs/wiring.svg)
 
@@ -49,7 +53,7 @@ The bridge works without the capacitor and the resistors; it was first tested on
 - **CH_PD (EN) must be at 3.3 V,** or the ESP-01 stays switched off. The ESP-01S has a pull-up on the board, but the original ESP-01 often doesn't.
 - **On VESC 6-style COMM ports** (such as the FSESC 6.6: 5V, 3.3V, GND, ADC1, RX, TX, ADC2, ADC3), an ADC throttle can stay on the same port. Check your own ESC's pinout, since connectors differ between models.
 
-### Wiring: the cheap and dirty way (four wires, tested)
+### The cheap and dirty way (four wires, tested)
 
 ![Minimal wiring diagram](docs/wiring_minimal.svg)
 
