@@ -3,7 +3,7 @@
 **The cheapest way we know of to talk to your VESC wirelessly.** A ~€1–2 ESP-01 (ESP8266) module turns your VESC's UART into a WiFi link, so VESC Tool on your phone or laptop can read live data and change settings with no USB cable and no €20 Bluetooth module.
 
 - Live real-time data, trip stats and full configuration from the VESC Tool phone app.
-- About €3 in total, including the regulator, capacitor and resistors.
+- About €3 in parts, including the regulator, capacitor and resistors, plus a ~€1–3 USB programmer to flash it once (see below).
 - Lets you seal the ESC away from the weather. You don't need to reach its USB port.
 - Tested on a Flipsky FSESC 6.6 (VESC 6) on an e-bike, with VESC Tool on Android over TCP. Solid connection while riding.
 
@@ -21,7 +21,16 @@ The ESP-01 runs its own WiFi access point and a TCP server on port 65102, VESC T
 | AMS1117 3.3 V regulator module | Powers the ESP-01 from the VESC's 5 V |
 | 220 µF electrolytic capacitor, 10 V or more | Optional. At the ESP-01's VCC/GND pins, for WiFi current peaks |
 | 2 × 1 kΩ resistors | Optional. In series with TX and RX. They protect both sides if TX and RX get swapped |
-| USB-serial adapter (3.3 V) | Only for flashing, e.g. FT232RL, CH340 or CP2102 |
+| **Programmer** (one-time tool) | **Needed to load the firmware into the ESP-01.** See below |
+
+### You need a programmer to flash the ESP-01
+
+The ESP-01 has no USB port, so you need a small USB programmer to load the firmware. You only need it once; it isn't part of the finished bridge. Either:
+
+- **An ESP-01 USB programmer** (CH340-based, about €1–3). The ESP-01 plugs straight into it. **Buy the version with a PROG/UART switch**, which connects GPIO0 to GND for flashing. Without the switch you have to add a wire or a button from GPIO0 to GND yourself.
+- **A generic 3.3 V USB-serial adapter** (FT232RL, CH340 or CP2102) with jumper wires, wired as described under [Build and flash](#build-and-flash).
+
+Including a programmer, the whole setup is still only about €4–6.
 
 The bridge works without the capacitor and the resistors; it was first tested on the bike with plain wires. They're cheap insurance: the resistors make a swapped TX/RX harmless, and the capacitor smooths the supply when the WiFi transmits.
 
@@ -61,14 +70,16 @@ GND and VCC are at diagonally opposite corners. To find GND with a multimeter, l
 
 1. Install [PlatformIO](https://platformio.org/).
 2. **Edit `platformio.ini`:** set `WIFI_SSID` and **your own `WIFI_PASS`** (8–63 characters). The build refuses to compile while the password is still `CHANGE_ME`. Anyone who knows the password can change your ESC's settings, including current limits, so use a strong one.
-3. Wire the ESP-01 to a 3.3 V USB-serial adapter: adapter TX to ESP RX, adapter RX to ESP TX, GND shared, VCC and CH_PD to 3.3 V, **GPIO0 to GND**.
-4. Power up the ESP-01 with GPIO0 on GND, then run:
+3. Connect the ESP-01 to your programmer:
+   - **ESP-01 USB programmer:** plug the ESP-01 in and set the switch to **PROG** (GPIO0 to GND).
+   - **Generic USB-serial adapter:** adapter TX to ESP RX, adapter RX to ESP TX, GND shared, VCC and CH_PD to 3.3 V, **GPIO0 to GND**.
+4. Plug the programmer into USB (the ESP-01 must power up with GPIO0 on GND), then run:
 
 ```
 pio run -t upload
 ```
 
-5. Remove the GPIO0-to-GND link and power-cycle.
+5. Set the switch back to **UART** (or remove the GPIO0-to-GND link) and power-cycle. The ESP-01 now runs the bridge; take it out of the programmer and wire it to the VESC.
 
 ### Flashing tips
 
