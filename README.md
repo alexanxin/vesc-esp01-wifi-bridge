@@ -18,10 +18,15 @@ The ESP-01 runs its own WiFi access point and a TCP server on port 65102, VESC T
 | Part | Notes |
 |---|---|
 | ESP-01 or ESP-01S module | ESP8266, 1 MB flash |
-| AMS1117 3.3 V regulator module | Optional. Powers the ESP-01 from the VESC's 5 V instead of its 3.3 V pin |
+| AMS1117 3.3 V regulator module | **Required if you power the ESP-01 from 5 V.** Not needed from the 3.3 V pin (see below) |
 | 220 µF electrolytic capacitor, 10 V or more | Optional. At the ESP-01's VCC/GND pins, for WiFi current peaks |
 | 2 × 1 kΩ resistors | Optional. In series with TX and RX. They protect both sides if TX and RX get swapped |
 | **Programmer** (one-time tool) | **Needed to load the firmware into the ESP-01.** See below |
+
+### Power: 5 V or 3.3 V?
+
+- **From the VESC's 5 V pin: you need the AMS1117 regulator.** The ESP-01 is a 3.3 V part (3.6 V maximum); 5 V straight onto it will destroy it.
+- **From the VESC's 3.3 V pin: no regulator needed.** But that rail also powers the ESC's own processor and your throttle, and the ESP-01's WiFi can draw peaks of up to about 300 mA. Depending on your ESC, this may work fine (it did on an FSESC 6.6) or the dips may cause throttle jitter or an ESC reset. The 220 µF capacitor at the ESP-01 and the default 10 dBm transmit power both reduce the risk. If you see any of those symptoms, switch to 5 V with the regulator.
 
 ### You need a programmer to flash the ESP-01
 
