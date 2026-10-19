@@ -18,7 +18,7 @@ The ESP-01 runs its own WiFi access point and a TCP server on port 65102, VESC T
 | Part | Notes |
 |---|---|
 | ESP-01 or ESP-01S module | ESP8266, 1 MB flash |
-| AMS1117 3.3 V regulator module | Powers the ESP-01 from the VESC's 5 V |
+| AMS1117 3.3 V regulator module | Optional. Powers the ESP-01 from the VESC's 5 V instead of its 3.3 V pin |
 | 220 µF electrolytic capacitor, 10 V or more | Optional. At the ESP-01's VCC/GND pins, for WiFi current peaks |
 | 2 × 1 kΩ resistors | Optional. In series with TX and RX. They protect both sides if TX and RX get swapped |
 | **Programmer** (one-time tool) | **Needed to load the firmware into the ESP-01.** See below |
@@ -32,7 +32,7 @@ The ESP-01 has no USB port, so you need a small USB programmer to load the firmw
 
 Including a programmer, the whole setup is still only about €4–6.
 
-The bridge works without the capacitor and the resistors; it was first tested on the bike with plain wires. They're cheap insurance: the resistors make a swapped TX/RX harmless, and the capacitor smooths the supply when the WiFi transmits.
+The bridge works without the regulator, the capacitor and the resistors; it was tested on the bike with just four wires (see [the cheap and dirty way](#the-cheap-and-dirty-way-four-wires-tested)). They're cheap insurance: the regulator keeps the ESP-01's current peaks off the ESC's own 3.3 V rail, the resistors make a swapped TX/RX harmless, and the capacitor smooths the supply when the WiFi transmits.
 
 ## Wiring
 
